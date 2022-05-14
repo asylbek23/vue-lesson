@@ -92,15 +92,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #fff;
   margin-top: 60px;
-  background-color: #333;
-  padding: 40px;
-  border-radius: 30px;
-
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.todo {
+  color: #fff;
+  background-color: #333;
+  padding: 40px;border-radius: 30px;
 }
 
 .todo__container {
