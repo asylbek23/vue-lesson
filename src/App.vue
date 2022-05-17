@@ -10,63 +10,34 @@
           <div class="todo__inputs">
             <div class="todo__input">
               <label for="">Name</label>
-              <input type="text" class="todo__input-name">
+              <input type="text" class="todo__input-name" v-bind:value="name" v-on:input="setName">
             </div>
+
             <div class="todo__input">
               <label for="">Description</label>
-              <input type="text" class="todo__input-descr">
+              <input type="text" class="todo__input-descr" v-bind:value="description" v-on:input="setDescription">
             </div>
+
           </div>
-          <button class="btn btn-add">Add Todo</button>
+          <button class="btn btn-add" v-on:click="addTodo">Add Todo</button>
         </div>
 
         <!-- Content -->
         <div class="todo__content">
           <div class="todo__list list">
+
             <!-- List item 1 -->
-            <div class="list__item">
+            <div class="list__item" v-for="a in todos" :key="a.name">
               <div class="list__text">
-                <div class="list__title">Task 1</div>
-                <div class="list__descr">This is my task one</div>
+                <div class="list__title" >{{a.name}}</div>
+                <div class="list__descr" >{{a.description}}</div>
               </div>
               <div class="list__btns">
-                <button class="list__btn btn btn-complete">Complete</button>
-                <button class="list__btn btn btn-delete">Delete</button>
+                <button class="list__btn btn btn-complete" v-on:click="taskComplete">Complete</button>
+                <button class="list__btn btn btn-delete" v-on:click="deleteTaskItem">Delete</button>
               </div>
             </div>
-            <!-- List item 2 -->
-            <div class="list__item">
-              <div class="list__text">
-                <div class="list__title is-done">Task 2</div>
-                <div class="list__descr is-done">This is my task two</div>
-              </div>
-              <div class="list__btns">
-                <button class="list__btn btn btn-complete is-pressed">Complete</button>
-                <button class="list__btn btn btn-delete">Delete</button>
-              </div>
-            </div>
-            <!-- List item 3 -->
-            <div class="list__item">
-              <div class="list__text">
-                <div class="list__title">Task 3</div>
-                <div class="list__descr">This is my task three</div>
-              </div>
-              <div class="list__btns">
-                <button class="list__btn btn btn-complete">Complete</button>
-                <button class="list__btn btn btn-delete">Delete</button>
-              </div>
-            </div>
-            <!-- List item 4 -->
-            <div class="list__item">
-              <div class="list__text">
-                <div class="list__title">Task 4</div>
-                <div class="list__descr">This is my task four</div>
-              </div>
-              <div class="list__btns">
-                <button class="list__btn btn btn-complete">Complete</button>
-                <button class="list__btn btn btn-delete">Delete</button>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -77,6 +48,64 @@
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+      name: "",
+      description: "",
+      todos: [],
+      deleteTask: true
+    }
+  },
+  methods: {
+    setName(e) {
+      this.name = e.target.value;
+      console.log(e.target.value);
+    },
+
+    setDescription(e) {
+      this.description = e.target.value;
+      console.log(e.target.value);
+    },
+
+    addTodo() {
+      let todo = {
+        name: this.name,
+        description: this.description,
+        done: false
+      }
+
+      this.todos.push(todo);
+    },
+
+    taskComplete() {
+      let findDone = this.todos.find(item => item.done === false);
+
+      let todoDoneState = findDone.done;
+
+      const listTitle = document.querySelector('.list__title');
+      const listDescription = document.querySelector('.list__descr');
+      const btnComplete = document.querySelector('.btn-complete');
+
+      if (todoDoneState == false) {
+        listTitle.classList.add('is-done');
+        listDescription.classList.add('is-done');
+        btnComplete.classList.add('is-pressed');
+      } else {
+        listTitle.classList.remove('is-done');
+        listDescription.classList.remove('is-done');
+        btnComplete.classList.remove('is-pressed');
+      }
+
+      // console.log(findDone.done);
+    },
+
+    deleteTaskItem() {
+      let blabla = this.deleteTask;
+      blabla = false;
+      console.log(blabla);
+    }
+
+  }
 };
 </script>
 
