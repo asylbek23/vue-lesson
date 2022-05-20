@@ -1,11 +1,6 @@
-tasks:[{id:1, title:'baga'}, {id:2, title:'Mars'}, {id:3, title:'Germany'}]
-- Вывести элементы массива в <p>
-- Добавить кнопку Delete для каждого p своя кнопка.
+вывести все id, title li
 
-- По нажатию кнопки Delete вывзод метов deleteItem написать консоле item deleted
+Добавить li класс <li v-bind:class="{'eto-class':todo.completed}"> .... </li>.
+В css добавить .eto-class{color:red; font-size:55px;}
 
-- По нажатию кнопки Delete вывзод метов deleteItem передать этот метод нажатый объект и вывести его консоль
-
-- По нажатию кнопки Delete вывзод метов deleteItem передать этот метод нажатый объект и найти этот объект в массиве tasks через array.find. Найденый элмент вывести консоль
-
-- По нажатию кнопки Delete вывзод метов deleteItem передать этот метод нажатый объект и найти этот объект в массиве tasks через array.find. Найденый элмента изменить поле title на Title changed
+в дата вручную поменять completed у некоторых на true, false и посмтореть результат в браузере

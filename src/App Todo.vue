@@ -1,7 +1,6 @@
 <template>
   <div id="app">
 
-    <!-- TODO -->
     <div class="todo">
       <div class="todo__container">
         <!-- Title -->
@@ -31,11 +30,11 @@
             <!-- List item 1 -->
             <div class="list__item" v-for="a in todos" :key="a.name">
               <div class="list__text">
-                <div class="list__title" >{{a.name}}</div>
-                <div class="list__descr" >{{a.description}}</div>
+                <div class="list__title" v-bind:class="{'is-done': isColorChange }">{{a.name}}</div>
+                <div class="list__descr" v-bind:class="{'is-done': isColorChange }">{{a.description}}</div>
               </div>
               <div class="list__btns">
-                <button class="list__btn btn btn-complete" v-on:click="taskComplete">Complete</button>
+                <button class="list__btn btn btn-complete" v-on:click="changeColor">Complete</button>
                 <button class="list__btn btn btn-delete" v-on:click="deleteTaskItem">Delete</button>
               </div>
             </div>
@@ -45,11 +44,6 @@
       </div>
     </div>
 
-
-    <!-- ADDITIONAL HOMEWORK -->
-    <div class="additional">
-      <p>Additional</p>
-    </div>
 
   </div>
 </template>
@@ -62,7 +56,8 @@ export default {
       name: "",
       description: "",
       todos: [],
-      deleteTask: true
+      deleteTask: true,
+      isColorChange: false
     }
   },
   methods: {
@@ -86,32 +81,9 @@ export default {
       this.todos.push(todo);
     },
 
-    taskComplete() {
-      let findDone = this.todos.find(item => item.done === false);
-
-      let todoDoneState = findDone.done;
-
-      const listTitle = document.querySelector('.list__title');
-      const listDescription = document.querySelector('.list__descr');
-      const btnComplete = document.querySelector('.btn-complete');
-
-      if (todoDoneState == false) {
-        listTitle.classList.add('is-done');
-        listDescription.classList.add('is-done');
-        btnComplete.classList.add('is-pressed');
-      } else {
-        listTitle.classList.remove('is-done');
-        listDescription.classList.remove('is-done');
-        btnComplete.classList.remove('is-pressed');
-      }
-
-      // console.log(findDone.done);
-    },
-
-    deleteTaskItem() {
-      let blabla = this.deleteTask;
-      blabla = false;
-      console.log(blabla);
+    changeColor() {
+      this.isColorChange = true;
+      console.log(this.isColorChange);
     }
 
   }
