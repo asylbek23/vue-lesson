@@ -2,7 +2,7 @@
   <div id="app">
 
     <ul>
-      <li v-for="a in todos" :key="a.id" v-bind:class="{'eto-class':todos.completed}">{{a.title}}</li>
+      <li v-for="a in todos" :key="a.id" v-bind:class="{'eto-class':a.completed}">{{a.title}}</li>
     </ul>
 
   </div>
@@ -11,7 +11,7 @@
 <script>
 
 export default {
-  name: "App",
+  name: "App Todos",
   data() {
     return {
       todos:[
