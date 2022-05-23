@@ -17,8 +17,6 @@
           </div>
         </div>
 
-        <!-- v-if="item.price > 500" -->
-
         <!-- Items -->
         <div class="catalog__items">
           <div class="catalog__item" v-for="item in products" :key="item.id">
@@ -27,6 +25,7 @@
               <div class="catalog__buttons">
                 <button class="button button--like" v-on:click="addFavorites(item)">Like</button>
                 <button class="button button--basket" v-on:click="addBasket(item)">В корзину</button>
+                <!-- {{basketText}} -->
               </div>
             </div>
           </div>
@@ -44,7 +43,7 @@
 <script>
 
 export default {
-  name: "App",
+  name: "AppMain",
   data() {
     return {
       products:[
@@ -113,17 +112,47 @@ export default {
       limit:30,
       baskets: [],
       favorites: [],
+      buttonBasket: false,
     }
   },
   methods: {
     addBasket(product) {
-      this.baskets.push(product);
-      // console.log(this.baskets);
+      const baskets = this.baskets;
+
+      if (baskets.find(elem => elem === product)) {
+        return false
+      } else {
+        baskets.push(product);
+      }
+
+      if (this.buttonBasket) {
+        return this.buttonBasket = false;
+      } else {
+        return this.buttonBasket = true;
+      }
+
     },
+
     addFavorites(favorite) {
-      this.favorites.push(favorite);
+      const favorites = this.favorites;
+
+      if (favorites.find(elem => elem === favorite)) {
+        return false;
+      } else {
+        favorites.push(favorite)
+      }
     }
-  }
+  },
+
+  // computed: {
+  //   basketText: function() {
+  //     if(this.buttonBasket) {
+  //       return 'Уже в корзине'
+  //     }
+
+  //     return 'В корзину'
+  //   }
+  // }
 };
 
 </script>

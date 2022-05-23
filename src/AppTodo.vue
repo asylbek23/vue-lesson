@@ -10,13 +10,12 @@
         <div class="todo__header">
           <div class="todo__inputs">
             <div class="todo__input">
-              <label for="">Name</label>
-              <input type="text" class="todo__input-name" v-bind:value="name" v-on:input="setName">
+              <label for="" >Name</label>
+              <input type="text" class="todo__input-name" v-on:input="setTitle" v-bind:value="title">
             </div>
-
             <div class="todo__input">
-              <label for="">Description</label>
-              <input type="text" class="todo__input-descr" v-bind:value="description" v-on:input="setDescription">
+              <label for="" >Description</label>
+              <input type="text" class="todo__input-descr" v-on:input="setDescription" v-bind:value="description">
             </div>
 
           </div>
@@ -26,16 +25,15 @@
         <!-- Content -->
         <div class="todo__content">
           <div class="todo__list list">
-
             <!-- List item 1 -->
-            <div class="list__item" v-for="a in todos" :key="a.name">
+            <div class="list__item" v-for="todo in todoList" :key="todo.title">
               <div class="list__text">
-                <div class="list__title" v-bind:class="{'is-done': isColorChange }">{{a.name}}</div>
-                <div class="list__descr" v-bind:class="{'is-done': isColorChange }">{{a.description}}</div>
+                <div class="list__title" v-bind:class="{'is-done': todo.done}">{{todo.title}}</div>
+                <div class="list__description" v-bind:class="{'is-done': todo.done}">{{todo.description}}</div>
               </div>
               <div class="list__btns">
-                <button class="list__btn btn btn-complete" v-on:click="changeColor">Complete</button>
-                <button class="list__btn btn btn-delete" v-on:click="deleteTaskItem">Delete</button>
+                <button class="list__btn btn btn-complete" v-on:click="makeComplete(todo)">Complete</button>
+                <button class="list__btn btn btn-delete" v-on:click="deleteItem(todo)">Delete</button>
               </div>
             </div>
 
@@ -50,42 +48,57 @@
 
 <script>
 export default {
-  name: "App Todo",
+  name: "AppTodo",
   data() {
     return {
-      name: "",
+      title: "",
       description: "",
-      todos: [],
-      deleteTask: true,
-      isColorChange: false
+      todoList: [],
     }
   },
   methods: {
-    setName(e) {
-      this.name = e.target.value;
-      console.log(e.target.value);
+    setTitle(e) {
+      this.title = e.target.value;
     },
-
     setDescription(e) {
       this.description = e.target.value;
-      console.log(e.target.value);
     },
-
     addTodo() {
-      let todo = {
-        name: this.name,
+      const todoList = this.todoList;
+
+      const todo = {
+        title: this.title,
         description: this.description,
-        done: false
+        done: false,
       }
 
-      this.todos.push(todo);
+      // console.log(todo);
+      // console.log(todoList);
+
+      const foundIndex = todoList.find(el => el.title === todo.title);
+
+      // console.log(foundIndex);
+      console.log(todo.title);
+
+      todoList.push(foundIndex);
+
+      // if (todoList.find(elem => elem === todo)) {
+      //   return false;
+      // } else {
+      //   todoList.push(todo);
+      //   console.log('is pushed');
+      // }
+
+      // todoList.push(todo);
     },
-
-    changeColor() {
-      this.isColorChange = true;
-      console.log(this.isColorChange);
+    makeComplete(todo) {
+      todo.done = true;
+    },
+    deleteItem(todo) {
+      const foundIndexShort = this.todoList.findIndex((elem) => elem.title === todo.title);
+      console.log(todo);
+      this.todoList.splice(foundIndexShort, 1);
     }
-
   }
 };
 </script>
@@ -94,7 +107,7 @@ export default {
 
 body {
   background-color: #dbdbdb;
-  /* font-size: 20px; */
+  /* font-size: 18px; */
 }
 
 #app {
@@ -106,6 +119,11 @@ body {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 18px;
+}
+
+input {
+  font-size: 18px;
 }
 
 .title {
@@ -172,9 +190,10 @@ button {
   cursor: pointer;
   border-radius: 30px;
   display: inline-block;
-  font-size: 14px;
+  /* font-size: 14px; */
   padding: 7px 14px;
   font-weight: 600;
+  font-size: 18px;
 }
 
 .btn-add {
@@ -200,8 +219,8 @@ button {
   text-align: left;
 }
 
-.list__descr {
-  font-size: 14px;
+.list__description {
+  /* font-size: 14px; */
   margin-top: 5px;
 }
 
@@ -227,7 +246,7 @@ button {
 }
 
 .list__title.is-done,
-.list__descr.is-done {
+.list__description.is-done {
   color: #777;
   text-decoration: line-through;
 }

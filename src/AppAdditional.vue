@@ -3,10 +3,7 @@
 
     <!-- ADDITIONAL HOMEWORK -->
     <div class="additional">
-      <p v-for="a in tasks" :key="a.id">
-        {{a.id}} {{a.title}}
-        <button v-on:click="deleteItem(a)">Delete</button>
-      </p>
+      <p v-for="task in tasks" :key="task.id"><button v-on:click="deleteItem(task)">Delete</button></p>
     </div>
 
   </div>
@@ -22,16 +19,13 @@ export default {
         {id:1, title:'baga'},
         {id:2, title:'Mars'},
         {id:3, title:'Germany'}
-      ],
+      ]
     }
   },
   methods: {
-    deleteItem(task) {
-      // console.log('deleted');
-      // console.log(this.tasks);
-      console.log(task);
-      task.title = 'Title changed'
-    },
+    deleteItem(e) {
+      console.log(e);
+    }
   }
 };
 
